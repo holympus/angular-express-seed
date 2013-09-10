@@ -87,13 +87,14 @@ app.get('/logout', auth.logout);
 app.post('/register', function(req, res) {
     User.register(new User({ username : req.body.username }), req.body.password, function(err, user) {
         if (err) {
-            return res.render('register', { user : user });
+            console.log(err);
+            return res.json({ "success": "false", "errorMsg": err.message })
         }
 		var email_verification_code = Math.random().toString(36).substr(2,16);
 		user.email_verification_code = email_verification_code;
 		user.save(function (err) {
    		 if (err) return handleError(err);
-    	 
+    	 	return res.json({ "success": "false", "errorMsg": "User could not be saved." })
   		});
 		//postmark.send({
         //"From": "notifications@crushthewod.com", 
@@ -101,7 +102,7 @@ app.post('/register', function(req, res) {
         //"Subject": "Email Confirmation", 
         //"TextBody": "Hello! Please confirm your email by clicking this link: http://54.241.9.166:3000/verifyemail/?v=" + email_verification_code
     //});
-        res.redirect('/');
+        res.json({ "success": "true" })
     });
 });
 

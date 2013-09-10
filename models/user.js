@@ -5,7 +5,6 @@ var mongoose = mongoose = require('mongoose')
 var User = mongoose.Schema({
 	    first_name: String,
 	    last_name: String,
-	    phone: String,
 	    email_verification_code: String,
 	    email_verified: { type: Boolean, default: false},
 	    active: { type: Boolean, default: true },
