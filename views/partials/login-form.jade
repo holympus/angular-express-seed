@@ -1,0 +1,14 @@
+form(role="form")
+  h2  Log In
+  .alert.alert-danger(ng-show="loginform.errors") 
+    ul.form-errors
+      li.form-error(ng-repeat="error in loginform.errors") {{error.title}}: {{error.msg}}
+  .alert.alert-success(ng-show="login.success")  {{loginform.success}}
+  .form-group
+    label(for="user") Username
+    input.form-control(ng-model="loginform.username", type="user", id="user", placeholder="username or email")
+    span.error {{login.error.username}}
+  .form-group
+    label(for="password") Password
+    input.form-control(ng-model="loginform.password", type="password", id="password", placeholder="password")
+  button.btn.btn-default(type="submit") Submit

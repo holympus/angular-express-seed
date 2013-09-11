@@ -1,0 +1,13 @@
+.jumbotron
+  label(for="setState") Set State
+    small (success|login)
+  input(name="setState", ng-model="login.state")
+  p {{loginform.username}} {{loginform.password}}
+
+  .hero-unit(ng-switch="login.state")
+    #login-success(ng-switch-when="success")
+      ng-include(src="'partials/login-success'")
+    #login-form(ng-switch-when="login")
+      ng-include(src="'partials/login-form'")
+
+  
