@@ -54,13 +54,14 @@ angular.module('myApp.controllers', []).
       .success(function(data, status, headers, config) {
           login.state = 'success';
           LoggedIn.user = data;
+          console.log('loggedIn User',LoggedIn.user)
       }).error(function(data, status, headers, config) {
           login.state = 'login';
           login.errors = data;
           LoggedIn.user = LoggedIn.noUser;
           
       });  
-      console.log('loggedIn User',LoggedIn.user)
+      
     }
     
     $scope.loggedIn = LoggedIn;
