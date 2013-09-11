@@ -8,7 +8,6 @@ var express = require('express'),
   api = require('./routes/api'),
   http = require('http'),
   path = require('path'),
-  auth = require('./routes/auth'),
   passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy
   , flash = require('connect-flash');
@@ -78,14 +77,18 @@ app.get('/api/name', api.name);
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);
 
-app.post('/login', auth.login);
+app.post('/login', passport.authenticate('local'), function(req, res) {
+        res.json({ "success": "true", "first_name": req.user.first_name })
+    });
 
-app.get('/logout', auth.logout);
-
+app.get('/logout', function(req, res) {
+        req.logout();
+        res.redirect('/');
+    });
 
 
 app.post('/register', function(req, res) {
-    User.register(new User({ username : req.body.username }), req.body.password, function(err, user) {
+    User.register(new User({ username : req.body.username, first_name: req.body.first_name }), req.body.password, function(err, user) {
         if (err) {
             console.log(err);
             return res.json({ "success": "false", "errorMsg": err.message })
