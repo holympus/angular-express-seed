@@ -24,55 +24,54 @@ angular.module('myApp.controllers', []).
     // write Ctrl here
 
   }).
-  controller('LoginCtrl', function ($scope,$http,$routeParams,loggedIn) {
+ 
+ 
+  controller('LoginCtrl', function ($scope,$http,$routeParams,LoggedIn) {
     var state = $routeParams.state || "login";
-    $scope.meta = {title: "Gnopher - Login -" + state }
     
-    $scope.login = {
+    
+    //models
+    var meta = {title: "Gnopher - Login -" + state }
+    var login = {
       'state': state
     };
-    
-    $scope.loginform = {
+    var loginForm = {
       username:'',
       password:'',
       success: null,//string
       errors: null,//[{title:'', msg:''}],
     };
     
-    $scope.doLogin = function(data){
-          data = {
-            "isUser" : "val",
-            "userId" : "val",
-            "token" : "val",
-            "isManager" : "val",
-            "company" : "val",
-            "email" : "val",
-            "username" : "val",
-            
-          }
-          loggedIn.user.isUser = data.isUser;
-          loggedIn.user.userId = data.userId;
-          loggedIn.user.token = data.token;
-          loggedIn.user.isManager = data.isManager;
-          loggedIn.user.company = data.company;
-          loggedIn.user.email = data.email;
-          loggedIn.user.username = data.username;
+    
+    
+    var doLogin = function(){
+      var data = {
+        "username": loginForm.username,
+        "password": loginForm.password
+      }
+      console.log(data);
+      $http.post('/login/', data)
+      .success(function(data, status, headers, config) {
+          login.state = 'success';
+          LoggedIn = data;
+      }).error(function(data, status, headers, config) {
+          login.state = 'login';
+          login.errors = data;
+          LoggedIn.user = LoggedIn.noUser;
           
-          //logged in!  now refresh
-      
-      // $http.post('/api/user/validate', this.data)
-      // .success(function(data, status, headers, config) {
-      //     loggedIn.user.isUser = data.isUser;
-      //     loggedIn.user.userId = data.userId;
-      //     loggedIn.user.token = data.token;
-      //     loggedIn.user.isManager = data.isManager;
-      //     loggedIn.user.company = data.company;
-      //     loggedIn.user.email = data.email;
-      //     loggedIn.user.username = data.username;
-      // }).error(function(data, status, headers, config) {
-      //     loggedIn.user = loggedIn.noUser;
-      // });
-      
+      });  
+      console.log('loggedIn User',LoggedIn.username)
     }
+    
+    $scope.loggedIn = LoggedIn;
+    $scope.loginForm = loginForm;
+    $scope.login = login;
+    $scope.meta = meta;
+    $scope.state = state;
+    $scope.doLogin = doLogin;
+    console.log($scope);
+    
+    
+    
     
   });

@@ -58,4 +58,4 @@ var LoggedIn = function() {
 //   return $location.path("/login");
 // }
 
-angular.module('myApp.services').service('loggedIn', LoggedIn);
+angular.module('myApp.services').service('LoggedIn', LoggedIn);

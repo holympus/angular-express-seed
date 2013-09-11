@@ -1,14 +1,14 @@
-form(role="form")
+form(role="form",ng-submit="doLogin()")
   h2  Log In
-  .alert.alert-danger(ng-show="loginform.errors") 
+  .alert.alert-danger(ng-show="login.errors") 
     ul.form-errors
-      li.form-error(ng-repeat="error in loginform.errors") {{error.title}}: {{error.msg}}
-  .alert.alert-success(ng-show="login.success")  {{loginform.success}}
+      li.form-error(ng-repeat="error in login.errors") {{error.title}}: {{error.msg}}
+  .alert.alert-success(ng-show="login.success")  {{loginForm.success}}
   .form-group
     label(for="user") Username
-    input.form-control(ng-model="loginform.username", type="user", id="user", placeholder="username or email")
+    input.form-control(ng-model="loginForm.username", type="user", id="user", placeholder="username or email")
     span.error {{login.error.username}}
   .form-group
     label(for="password") Password
-    input.form-control(ng-model="loginform.password", type="password", id="password", placeholder="password")
-  button.btn.btn-default(ng-click="doLogin", type="submit") Submit
+    input.form-control(ng-model="loginForm.password", type="password", id="password", placeholder="password")
+  button.btn.btn-default(type="submit") Submit
