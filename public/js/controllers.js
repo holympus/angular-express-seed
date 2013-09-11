@@ -60,7 +60,7 @@ angular.module('myApp.controllers', []).
           LoggedIn.user = LoggedIn.noUser;
           
       });  
-      console.log('loggedIn User',LoggedIn.username)
+      console.log('loggedIn User',LoggedIn.user)
     }
     
     $scope.loggedIn = LoggedIn;
