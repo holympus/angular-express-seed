@@ -53,7 +53,7 @@ angular.module('myApp.controllers', []).
       $http.post('/login/', data)
       .success(function(data, status, headers, config) {
           login.state = 'success';
-          LoggedIn = data;
+          LoggedIn.user = data;
       }).error(function(data, status, headers, config) {
           login.state = 'login';
           login.errors = data;
