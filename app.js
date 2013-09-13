@@ -94,8 +94,10 @@ app.get('*', routes.index);
 app.post('/api/login', passport.authenticate('local'), function(req, res) {
         res.json({ "success": "true", "first_name": req.user.first_name })
     });
-app.delete('/api/login', IsAuthenticated, function(req, res, next) {
+
+app.delete('/api/login', function(req, res) {
         req.logout();
+        res.json({ "success": "true"})
     });
 
 app.get('/api/logout', function(req, res) {
