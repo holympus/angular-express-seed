@@ -39,6 +39,8 @@ app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.cookieParser('your secret here'));
+app.use(express.session());
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -60,7 +62,14 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-
+function IsAuthenticated(req,res,next){
+    if(req.user){
+        next();
+    }
+    else{
+        res.send(401, {status:401, message: 'Unauthorized'})
+    }
+}
 /**
  * Routes
  */
@@ -74,14 +83,22 @@ app.get('/register', function(req, res) {
 // JSON API
 app.get('/api/name', api.name);
 
+app.get('/api/login', IsAuthenticated, function (req, res, next) {
+	res.json({ "success": "true", "username": req.user.username, "first_name": req.user.first_name })
+	
+	});
+
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);
 
-app.post('/login', passport.authenticate('local'), function(req, res) {
+app.post('/api/login', passport.authenticate('local'), function(req, res) {
         res.json({ "success": "true", "first_name": req.user.first_name })
     });
+app.delete('/api/login', IsAuthenticated, function(req, res, next) {
+        req.logout();
+    });
 
-app.get('/logout', function(req, res) {
+app.get('/api/logout', function(req, res) {
         req.logout();
         res.redirect('/');
     });

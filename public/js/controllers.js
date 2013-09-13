@@ -50,7 +50,7 @@ angular.module('myApp.controllers', []).
         "password": loginForm.password
       }
       console.log(data);
-      $http.post('/login/', data)
+      $http.post('/api/login/', data)
       .success(function(data, status, headers, config) {
           login.state = 'success';
           LoggedIn.user = data;

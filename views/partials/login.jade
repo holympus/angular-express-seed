@@ -1,7 +1,4 @@
 .jumbotron
-  label(for="setState") Set State
-    small (success|login)
-  input(name="setState", ng-model="login.state")
   p {{loginform.username}} {{loginform.password}}
 
   .hero-unit(ng-switch="login.state")
