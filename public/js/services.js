@@ -5,57 +5,43 @@
 
 // Demonstrate how to register services
 // In this case it is a simple value service.
-angular.module('myApp.services', []).
-  value('version', '0.1');
+angular.module('myApp.services', ['ngResource','ng'])
 
+.value('version', '0.1')
 
-var LoggedIn = function() {
-  this.noUser = {
-    isUser: null,
-    userId: false,
-    token: false,
-    isManager: null,
-    company: null,
-    email: null,
-    username: null
-  };
-  this.user = this.noUser;
-};
+.factory('LoggedInResource', ['$resource' , function($resource){
+  this.Login = $resource ("/api/login");
+  this.Login.username = '';
+  return this.Login; 
+}])
 
-// LoggedIn.prototype.login = function(data) {
-//   var _this = this;
-//   return $http.post('/api/user/login', data).success(function(data, status, headers, config) {
-//     _this.data.isUser = true;
-//     _this.data.userId = data.userId;
-//     _this.data.token = data.token;
-//     _this.data.isManager = data.isManager;
-//     _this.data.company = data.company;
-//     _this.data.email = data.email;
-//     return _this.data.username = data.username;
-//   }).error(function(data, status, headers, config) {
-//     $rootScope.$broadcast('loginError');
-//     return _this.data = _this.noUser;
-//   });
-// };
+.factory("LoggedIn", ['LoggedInResource', function(resource){
+  var self = this; 
+  this.first_name = '';
+  this.username = '';
+  this.success = '';
+  this.message = '';
+  this.status = ''; 
+  
+  this.doLogin = function(data){
+      resource.save(data, function(data,headers){
+        console.log('loggedIn resp',data);
+        console.log('headers',headers);
+        self.first_name = data.first_name; 
+        self.username = data.username;
+        self.success = data.success;
+        self.message = data.message;
+      },function(err){
+        console.log('loginerr',err);
+        self.message = err.data; 
+        self.status = err.status; 
+        self.failed = true; 
+        console.log('')
+      });
+    }
+  return this; 
+}])
+// get  => returns userObject
+// save => post method, logins in user with {username,password}
+// delete => logout user
 
-// LoggedIn.prototype.confirm = function() {
-//   var _this = this;
-//   return $http.post('/api/user/validate', this.data).success(function(data, status, headers, config) {
-//     _this.data.isUser = true;
-//     _this.data.userId = data.userId;
-//     _this.data.token = data.token;
-//     _this.data.isManager = data.isManager;
-//     _this.data.company = data.company;
-//     _this.data.email = data.email;
-//     return _this.data.username = data.username;
-//   }).error(function(data, status, headers, config) {
-//     _this.logout();
-//   });
-// };
-// LoggedIn.prototype.logout = function(){
-//   this.data = _this.noUser;
-//   $rootScope.$broadcast('logout');
-//   return $location.path("/login");
-// }
-
-angular.module('myApp.services').service('LoggedIn', LoggedIn);
