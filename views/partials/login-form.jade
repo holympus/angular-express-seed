@@ -1,14 +1,20 @@
-form(role="form",ng-submit="doLogin()")
+form(name="form", role="form",ng-submit="LoggedIn.doLogin(loginForm)")
   h2  Welcome to gnopher. Please log in below.
-  .alert.alert-danger(ng-show="login.errors") 
-    ul.form-errors
-      li.form-error(ng-repeat="error in login.errors") {{error.title}}: {{error.msg}}
-  .alert.alert-success(ng-show="login.success")  {{loginForm.success}}
+  .alert.alert-danger(ng-show="LoggedIn.failed")  
+     b Error {{LoggedIn.status}}: 
+     {{LoggedIn.message}}
+  .alert.alert-success(ng-show="LoggedIn.success")  {{LoggedIn.message}}
   .form-group
     label(for="user") Username
-    input.form-control(ng-model="loginForm.username", type="user", id="user", placeholder="username or email")
-    span.error {{login.error.username}}
+    input.form-control(ng-model="loginForm.username", type="email",name="username", id="user", placeholder="username or email", required)
+    //- span.alert-danger(ng-show="form.username.$dirty && form.username.$error.required") Tell us your email.
+    //- span.alert-danger(ng-show="form.username.$dirty && form.username.$error.email") This is not a valid email
   .form-group
     label(for="password") Password
-    input.form-control(ng-model="loginForm.password", type="password", id="password", placeholder="password")
+    input.form-control(ng-model="loginForm.password",required, type="password",name="password", id="password", placeholder="password")
+    //- span.alert-danger(ng-show="form.password.$dirty && form.username.$error.required") Please input your password
+
   button.btn.btn-default(type="submit") Submit
+  br
+    
+  a(ng-click="consoleLoggedIn();") LOG 'LoggedIn'

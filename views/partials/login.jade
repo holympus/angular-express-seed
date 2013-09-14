@@ -1,10 +1,11 @@
 .jumbotron
-  p {{loginform.username}} {{loginform.password}}
+  p Logged in as {{LoggedIn.first_name}}, username: {{LoggedIn.username}}
 
-  .hero-unit(ng-switch="login.state")
+  .hero-unit(ng-switch="state")
     #login-success(ng-switch-when="success")
       ng-include(src="'partials/login-success'")
     #login-form(ng-switch-when="login")
       ng-include(src="'partials/login-form'")
+
 
   
