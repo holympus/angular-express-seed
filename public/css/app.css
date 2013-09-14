@@ -1,4 +1,12 @@
 /* app css stylesheet */
+/*form error css*/
+form input.ng-invalid.ng-dirty{
+  background-color:#fdd;
+  color:#944;
+}
+form input.ng-invalid.ng-dirty:focus{
+  background-color:#fff ;
+}
 
 .menu {
   list-style: none;
@@ -28,3 +36,5 @@
   content: "";
   padding: 0;
 }
+
+
