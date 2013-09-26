@@ -24,21 +24,47 @@ angular.module('myApp.services', ['ngResource','ng'])
   this.status = ''; 
   
   this.doLogin = function(data){
-      resource.save(data, function(data,headers){
-        console.log('loggedIn resp',data);
-        console.log('headers',headers);
-        self.first_name = data.first_name; 
-        self.username = data.username;
-        self.success = data.success;
-        self.message = data.message;
-      },function(err){
-        console.log('loginerr',err);
-        self.message = err.data; 
-        self.status = err.status; 
-        self.failed = true; 
-        console.log('')
-      });
-    }
+    resource.save(data, function(data,headers){
+      console.log('loggedIn resp',data);
+      console.log('headers',headers);
+      self.first_name = data.first_name; 
+      self.username = data.username;
+      self.success = data.success;
+      self.message = data.message;
+    },function(err){
+      console.log('loginerr',err);
+      self.message = err.data; 
+      self.status = err.status; 
+      self.failed = true; 
+      console.log('')
+    });
+  };
+  
+  this.doLogout = function(){
+    resource.delete({},function(){
+      console.log('loggedout success');
+    },function(err){
+      console.log('loggout backend error', err);
+    });
+    console.log('starting to log out');
+    self.first_name = '';
+    self.username = '';
+    self.success = '';
+    self.message = '';
+    self.status = ''; 
+  }
+  
+  
+  // @param function proceed
+  this.verifyProceed= function(proceed){
+    resource.get({},function(data,headers){
+      console.log('verified user, proceeding');
+      proceed(); 
+    },function(err){
+      $location.path('/login')
+    });
+  }
+  
   return this; 
 }])
 // get  => returns userObject
