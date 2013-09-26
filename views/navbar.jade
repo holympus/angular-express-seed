@@ -1,0 +1,49 @@
+nav.navbar.navbar-default(role='navigation')
+  
+  
+  
+  //  Brand and toggle get grouped for better mobile display 
+  .navbar-header
+    button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-ex1-collapse')
+      span.sr-only Toggle navigation
+      span.icon-bar
+      span.icon-bar
+      span.icon-bar
+    a.navbar-brand(href='#') Gnopher
+  
+  
+  
+  // Collect the nav links, forms, and other content for toggling 
+  .collapse.navbar-collapse.navbar-ex1-collapse
+    ul.nav.navbar-nav
+      li.active
+        a(href='#') Candidates
+      li
+        a(href='#') Positions
+  
+  
+  
+    ul.nav.navbar-nav.navbar-right
+      
+      
+      form.navbar-form.navbar-left(role='search')
+        .form-group
+          input.form-control(type='text', placeholder='Search')
+        button.btn.btn-default(type='submit') Submit
+    
+
+      // logged in:
+      li.dropdown(ng-show="LoggedIn.success")
+        a.dropdown-toggle(href='#', data-toggle='dropdown')
+          | Profile
+          b.caret
+        ul.dropdown-menu
+          li
+            a(href='/#/profile/edit') Edit profile
+          li
+            a(ng-click="LoggedIn.doLogout();") Logout
+      // logged out:
+      li(ng-show="!LoggedIn.success")
+        a(target="_self", href='/login') Login
+              
+    // /.navbar-collapse 
