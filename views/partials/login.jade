@@ -1,11 +1,17 @@
-.jumbotron
-  p Logged in as {{LoggedIn.first_name}}, username: {{LoggedIn.username}}
-
-  .hero-unit(ng-switch="state")
-    #login-success(ng-switch-when="success")
-      ng-include(src="'partials/login-success'")
-    #login-form(ng-switch-when="login")
+.row
+  .col-sm-8.col-sm-offset-2
+    h1.text-center
+      | Welcome To Gnopher
+    br
+.row
+  .col-sm-6.col-sm-offset-3
+    #login-success.text-center(ng-show="LoggedIn.success")
+      hr
+      b Success! 
+      | {{LoggedIn.first_name.capitalize()}}, you are ready to hire some talent!
+      hr
+    #login-form(ng-show="!LoggedIn.success")
       ng-include(src="'partials/login-form'")
 
 
-  
+    
