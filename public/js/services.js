@@ -72,7 +72,7 @@ angular.module('myApp.services', ['ngResource','ng'])
       self.first_name = data.first_name; 
       self.username = data.username;
       self.success = data.success;
-      self.message = data.message;
+      self.message = data.message || "Successfully Logged In as " + data.username;
       
     },function(err){
       
