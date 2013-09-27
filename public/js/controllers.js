@@ -3,7 +3,9 @@
 /* Controllers */
 
 angular.module('myApp.controllers', [])
-  .controller('AppCtrl', function ($scope, $http) {
+  .controller('AppCtrl', ['$scope', '$http', 'LoggedIn',function ($scope, $http, LoggedIn) {
+    
+    
     $http({
       method: 'GET',
       url: '/api/name'
@@ -15,6 +17,10 @@ angular.module('myApp.controllers', [])
       $scope.name = 'Error!'
     });
     
+    $scope.LoggedIn = LoggedIn;
+    $scope.init = function(){
+      LoggedIn.init();
+    }
     
     
     $scope.navigation = {
@@ -36,6 +42,12 @@ angular.module('myApp.controllers', [])
   }])
 
   
+  
+  .controller('LogoutCtrl',['$scope','$window','LoggedIn', function($scope,$window,LoggedIn){
+    LoggedIn.doLogout(); i
+    $window.history.back();
+  }])
+  
   .controller('MyCtrl1', function ($scope) {
     // write Ctrl here
 
@@ -54,7 +66,8 @@ angular.module('myApp.controllers', [])
       username:'',
       password:''
     };
-    $scope.LoggedIn = LoggedIn;
+    //idealy will be inherited from AppCtrl
+    //$scope.LoggedIn = LoggedIn;
     console.log($scope);
     
     

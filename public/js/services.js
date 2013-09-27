@@ -15,7 +15,7 @@ angular.module('myApp.services', ['ngResource','ng'])
   return this.Login; 
 }])
 
-.factory("LoggedIn", ['LoggedInResource', function(resource){
+.factory("LoggedIn", ['LoggedInResource', '$location', function(resource,$location){
   var self = this; 
   this.first_name = '';
   this.username = '';
@@ -61,6 +61,21 @@ angular.module('myApp.services', ['ngResource','ng'])
       console.log('verified user, proceeding');
       proceed(); 
     },function(err){
+      $location.path('/login')
+    });
+  }
+  
+  this.init = function(){
+    console.log('initializing user', self);
+    resource.get({},function(data,headers){
+      console.log('verified user initiated');
+      self.first_name = data.first_name; 
+      self.username = data.username;
+      self.success = data.success;
+      self.message = data.message;
+      
+    },function(err){
+      
       $location.path('/login')
     });
   }
