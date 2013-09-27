@@ -35,8 +35,12 @@ angular.module('myApp.controllers', [])
     };
     $scope.LoggedIn = LoggedIn;
     console.log($scope);
+    
+    
     $scope.consoleLoggedIn = function(){
       console.log('loggedin',LoggedIn);
       false; 
     }
+    
+    
   }]);
