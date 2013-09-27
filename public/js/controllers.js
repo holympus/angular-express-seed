@@ -50,7 +50,6 @@ angular.module('myApp.controllers', [])
   
   .controller('LogoutCtrl',['$scope','$window','LoggedIn', function($scope,$window,LoggedIn){
     LoggedIn.doLogout();
-    $window.history.back();
   }])
   
  
