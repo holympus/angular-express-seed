@@ -94,11 +94,16 @@ angular.module('ui.bootstrap.collapse',['ui.bootstrap.transition'])
   var fixUpHeight = function(scope, element, height) {
     // We remove the collapse CSS class to prevent a transition when we change to height: auto
     element.removeClass('collapse');
+    element.removeClass('in'); // Added for compatibility with Bootstrap 3 RC1
+    element.removeClass('collapsing'); // Added for compatibility with Bootstrap 3 RC1
     element.css({ height: height });
     // It appears that  reading offsetWidth makes the browser realise that we have changed the
     // height already :-/
     var x = element[0].offsetWidth;
     element.addClass('collapse');
+    element.addClass('in'); // Added for compatibility with Bootstrap 3 RC1
+    element.addClass('collapsing'); // Added for compatibility with Bootstrap 3 RC1
+
   };
 
   return {
