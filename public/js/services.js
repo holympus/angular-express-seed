@@ -24,19 +24,21 @@ angular.module('myApp.services', ['ngResource','ng'])
   this.status = ''; 
   
   this.doLogin = function(data){
+    var username = data.username;
     resource.save(data, function(data,headers){
       console.log('loggedIn resp',data);
       console.log('headers',headers);
       self.first_name = data.first_name; 
-      self.username = data.username;
+      self.username = username;
       self.success = data.success;
       self.message = data.message;
+
     },function(err){
       console.log('loginerr',err);
       self.message = err.data; 
       self.status = err.status; 
       self.failed = true; 
-      console.log('')
+      console.log('');
     });
   };
   
@@ -75,7 +77,6 @@ angular.module('myApp.services', ['ngResource','ng'])
       self.message = data.message || "Successfully Logged In as " + data.username;
       
     },function(err){
-      
       $location.path('/login')
     });
   }
