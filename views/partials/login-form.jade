@@ -1,9 +1,9 @@
+.alert.alert-danger(ng-show="LoggedIn.failed")  
+  b Error {{LoggedIn.status}}: 
+  {{LoggedIn.message}}
+//- .alert.alert-success(ng-show="LoggedIn.success")  {{LoggedIn.message}}
 form(name="form", role="form",ng-submit="LoggedIn.doLogin(loginForm)")
-  h2  Welcome to gnopher. Please log in below.
-  .alert.alert-danger(ng-show="LoggedIn.failed")  
-     b Error {{LoggedIn.status}}: 
-     {{LoggedIn.message}}
-  .alert.alert-success(ng-show="LoggedIn.success")  {{LoggedIn.message}}
+  hr
   .form-group
     label(for="user") Username
     input.form-control(ng-model="loginForm.username", type="email",name="username", id="user", placeholder="username or email", required)
@@ -13,8 +13,7 @@ form(name="form", role="form",ng-submit="LoggedIn.doLogin(loginForm)")
     label(for="password") Password
     input.form-control(ng-model="loginForm.password",required, type="password",name="password", id="password", placeholder="password")
     //- span.alert-danger(ng-show="form.password.$dirty && form.username.$error.required") Please input your password
-
-  button.btn.btn-default(type="submit") Submit
+  hr
+  button.btn.btn-primary.pull-right(type="submit") Login
   br
     
-  a(ng-click="consoleLoggedIn();") LOG 'LoggedIn'
