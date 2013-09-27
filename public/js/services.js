@@ -54,6 +54,7 @@ angular.module('myApp.services', ['ngResource','ng'])
     self.success = '';
     self.message = '';
     self.status = ''; 
+    $location.path('/login');
   }
   
   
