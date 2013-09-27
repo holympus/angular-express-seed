@@ -14,12 +14,33 @@ angular.module('myApp.controllers', [])
     error(function (data, status, headers, config) {
       $scope.name = 'Error!'
     });
+    
+    
+    
+    $scope.navigation = {
+      profile: [
+        {
+          href: "/profile",
+          text: "Profile"
+        },
+        {
+          href: "/logout",
+          text: "Logout",
+        },
+      ],      
+    }
 
-  })
+    $scope.navbar = {
+      isCollapsed: true,
+    }
+  }])
+
+  
   .controller('MyCtrl1', function ($scope) {
     // write Ctrl here
 
   })
+  
   
   
   .controller('MyCtrl2', ['$scope',function ($scope) {
