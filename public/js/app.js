@@ -8,7 +8,8 @@ angular.module('myApp', [
   'myApp.services',
   'myApp.directives',
   'ngResource',
-  'ng'
+  'ng',
+  'ui.bootstrap'
 ]).
 config(function ($routeProvider, $locationProvider) {
   $routeProvider.
@@ -27,6 +28,9 @@ config(function ($routeProvider, $locationProvider) {
     when('/login', {
       templateUrl: 'partials/login',
       controller: 'LoginCtrl'
+    }).
+    when('/logout', {
+      controller: 'LogoutCtrl',
     }).
     otherwise({
       redirectTo: '/view1'
