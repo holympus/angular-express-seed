@@ -1,49 +1,48 @@
 nav.navbar.navbar-default(role='navigation')
-  
-  
-  
-  //  Brand and toggle get grouped for better mobile display 
-  .navbar-header  
-  
-
-    button.navbar-toggle(type='button', ng-click="navbar.isCollapsed = !navbar.isCollapsed")
-      span.sr-only Toggle navigation
-      span.icon-bar
-      span.icon-bar
-      span.icon-bar
-    a.navbar-brand(href='#') Gnopher
-  
-  
-  
-  // Collect the nav links, forms, and other content for toggling 
-  .collapse.navbar-collapse.navbar-ex1-collapse(ng-class="{'in': !navbar.isCollapsed}")
-    ul.nav.navbar-nav
-      li.active
-        a(href='#') Candidates
-      li
-        a(href='#') Positions
-  
-  
-  
-    ul.nav.navbar-nav.navbar-right
-      
-      
-      form.navbar-form.navbar-left(role='search')
-        .form-group
-          input.form-control(type='text', placeholder='Search')
-        button.btn.btn-default(type='submit') Submit
+  .container
+    
+    //  Brand and toggle get grouped for better mobile display 
+    .navbar-header  
     
 
-      // logged in:
-      li.dropdown(ng-show="LoggedIn.success", ng-controller="AppCtrl")
-        a.dropdown-toggle(href='#', data-toggle='dropdown')
-          | Profile
-          b.caret
-        ul.dropdown-menu
-          li(ng-repeat="choice in navigation.profile")
-            a(href="{{choice.href}}") {{choice.text}}
-      // logged out:
-      li(ng-show="!LoggedIn.success")
-        a(target="_self", href='/login') Login
-              
-    // /.navbar-collapse 
+      button.navbar-toggle(type='button', ng-click="navbar.isCollapsed = !navbar.isCollapsed", data-toggle='collapse', data-target='.navbar-ex1-collapse')
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand(href='#') Gnopher
+    
+    
+    
+    // Collect the nav links, forms, and other content for toggling 
+    .collapse.navbar-collapse.navbar-ex1-collapse(collapse="navbar.isCollapsed")
+      ul.nav.navbar-nav
+        li.active
+          a(href='#') Candidates
+        li
+          a(href='#') Positions
+    
+    
+    
+      ul.nav.navbar-nav.navbar-right
+        
+        
+        //- form.navbar-form.navbar-left(role='search')
+        //-   .form-group
+        //-     input.form-control(type='text', placeholder='Search')
+        //-   button.btn.btn-default(type='submit') Submit
+      
+
+        // logged in:
+        li.dropdown(ng-show="LoggedIn.success")
+          a.dropdown-toggle(href='#', data-toggle='dropdown')
+            | {{LoggedIn.username}}
+            b.caret
+          ul.dropdown-menu
+            li(ng-repeat="choice in navigation.profile")
+              a(href="{{choice.href}}") {{choice.text}}
+        // logged out:
+        li(ng-show="!LoggedIn.success")
+          a(target="_self", href='/login') Login
+                
+      // /.navbar-collapse 
