@@ -13,18 +13,6 @@ angular.module('myApp', [
 ]).
 config(function ($routeProvider, $locationProvider) {
   $routeProvider.
-    when('/view1', {
-      templateUrl: 'partials/partial1',
-      controller: 'MyCtrl1'
-    }).
-    when('/view2', {
-      templateUrl: 'partials/partial2',
-      controller: 'MyCtrl2'
-    }).
-    when('/login/:state', {
-      templateUrl: 'partials/login',
-      controller: 'LoginCtrl'
-    }).
     when('/login', {
       templateUrl: 'partials/login',
       controller: 'LoginCtrl'
@@ -33,12 +21,25 @@ config(function ($routeProvider, $locationProvider) {
       templateUrl: 'partials/logout',
       controller: 'LogoutCtrl',
     }).
+    when('/candidates', {
+      templateUrl: 'partials/candidates',
+      controller: 'CandidatesCtrl',
+    }).
+    when('/positions', {
+      templateUrl: 'partials/positions',
+      controller: 'PositionsCtrl',
+    }).
+    when('/profile', {
+      templateUrl: 'partials/profile',
+      controller: 'ProfileCtrl',
+    }).
     otherwise({
-      redirectTo: '/view1'
+      redirectTo: '/login'
     });
 
   $locationProvider.html5Mode(true);
 });
+
 
 String.prototype.capitalize = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
