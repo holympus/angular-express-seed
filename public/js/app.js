@@ -30,6 +30,7 @@ config(function ($routeProvider, $locationProvider) {
       controller: 'LoginCtrl'
     }).
     when('/logout', {
+      templateUrl: 'partials/logout',
       controller: 'LogoutCtrl',
     }).
     otherwise({
@@ -38,3 +39,7 @@ config(function ($routeProvider, $locationProvider) {
 
   $locationProvider.html5Mode(true);
 });
+
+String.prototype.capitalize = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+}
