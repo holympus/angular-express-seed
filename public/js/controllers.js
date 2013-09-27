@@ -3,25 +3,15 @@
 /* Controllers */
 
 angular.module('myApp.controllers', [])
-  .controller('AppCtrl', ['$scope', '$http', 'LoggedIn',function ($scope, $http, LoggedIn) {
-    
-    
-    $http({
-      method: 'GET',
-      url: '/api/name'
-    }).
-    success(function (data, status, headers, config) {
-      $scope.name = data.name;
-    }).
-    error(function (data, status, headers, config) {
-      $scope.name = 'Error!'
-    });
-    
+  
+  
+  .controller('AppCtrl', ['$scope', '$http', '$location','LoggedIn',function ($scope, $http, $location,LoggedIn) {   
+  
     $scope.LoggedIn = LoggedIn;
+    
     $scope.init = function(){
       LoggedIn.init();
     }
-    
     
     $scope.navigation = {
       profile: [
@@ -35,10 +25,25 @@ angular.module('myApp.controllers', [])
         },
       ],      
     }
-
+    
+  }])
+  
+  
+  .controller('NavbarCtrl', ['$scope','$location', function($scope,$location){
     $scope.navbar = {
       isCollapsed: true,
     }
+    
+    $scope.isActive = function (path) { 
+      var location = $location.path();
+      var length = path.length;
+      
+      console.log('active location',location);
+      if(length >1)
+        return path === location.substr(0,length);
+      else
+        return path === location;
+    };
   }])
 
   
