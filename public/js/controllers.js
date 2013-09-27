@@ -48,16 +48,6 @@ angular.module('myApp.controllers', [])
     $window.history.back();
   }])
   
-  .controller('MyCtrl1', function ($scope) {
-    // write Ctrl here
-
-  })
-  
-  
-  
-  .controller('MyCtrl2', ['$scope',function ($scope) {
-    // write Ctrl here
-  }])
  
  
   .controller('LoginCtrl',['$scope','$http','$routeParams', 'LoggedIn', function ($scope,$http,$routeParams,LoggedIn) {
@@ -77,4 +67,19 @@ angular.module('myApp.controllers', [])
     }
     
     
-  }]);
+  }])
+  
+  
+  
+  
+  .controller('PositionsCtrl',['$scope',function($scope){
+    console.log($scope);
+  }])
+  
+  .controller('CandidatesCtrl',['$scope',function($scope){
+    
+  }])
+    
+  .controller('ProfileCtrl',['$scope',function($scope){
+    
+  }])
