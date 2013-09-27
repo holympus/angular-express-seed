@@ -2,9 +2,14 @@ extends layout
 
 block body
   div(ng-controller='AppCtrl', ng-init='init();')
+    
     include navbar
    
-    div(ng-view)
+    .app-main-view
+      .container
+        div(ng-view)
+          
+          
     include footer
 
 
