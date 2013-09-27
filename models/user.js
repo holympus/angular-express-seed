@@ -1,8 +1,11 @@
 var mongoose = mongoose = require('mongoose')
   , Schema = mongoose.Schema
-  , passportLocalMongoose = require('passport-local-mongoose');
+  , ObjectId = Schema.ObjectId
+  , passportLocalMongoose = require('passport-local-mongoose')
+  , Company = require('./company');
 
-var User = mongoose.Schema({
+var UserSchema = new Schema({
+	    company: {type: ObjectId, ref: 'Company'},
 	    first_name: String,
 	    last_name: String,
 	    email_verification_code: String,
@@ -11,5 +14,5 @@ var User = mongoose.Schema({
 	    created_at: { type: Date, default: Date.now }
 	});
 
-User.plugin(passportLocalMongoose);
-module.exports = mongoose.model('User', User);
+UserSchema.plugin(passportLocalMongoose);
+module.exports = mongoose.model('User', UserSchema);

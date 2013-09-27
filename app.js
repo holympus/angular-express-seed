@@ -18,13 +18,15 @@ var mongoose = require('mongoose'),
 Schema = mongoose.Schema,
 passportLocalMongoose = require('passport-local-mongoose');
 
-var User = require('./models/user');
+var User = require('./models/user'),
+    Candidate = require('./models/candidate'),
+    Company = require('./models/company'),
+    Question = require('./models/question');
 
 mongoose.connect('mongodb://localhost/gnopher-development');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback () {
-  // yay!
 });
 
 /**
@@ -87,6 +89,12 @@ app.get('/api/login', IsAuthenticated, function (req, res, next) {
 	res.json({ "success": "true", "username": req.user.username, "first_name": req.user.first_name })
 	
 	});
+
+app.get('/api/candidates', IsAuthenticated, function (req, res, next) {
+  Candidate.find({'company':req.user.company._id}, function(err, candidates) {
+    res.json({'candidates': candidates});  
+  });
+});
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);
