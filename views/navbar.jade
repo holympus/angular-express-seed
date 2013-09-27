@@ -3,8 +3,10 @@ nav.navbar.navbar-default(role='navigation')
   
   
   //  Brand and toggle get grouped for better mobile display 
-  .navbar-header
-    button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-ex1-collapse')
+  .navbar-header  
+  
+
+    button.navbar-toggle(type='button', ng-click="navbar.isCollapsed = !navbar.isCollapsed")
       span.sr-only Toggle navigation
       span.icon-bar
       span.icon-bar
@@ -14,7 +16,7 @@ nav.navbar.navbar-default(role='navigation')
   
   
   // Collect the nav links, forms, and other content for toggling 
-  .collapse.navbar-collapse.navbar-ex1-collapse
+  .collapse.navbar-collapse.navbar-ex1-collapse(ng-class="{'in': !navbar.isCollapsed}")
     ul.nav.navbar-nav
       li.active
         a(href='#') Candidates
@@ -33,15 +35,13 @@ nav.navbar.navbar-default(role='navigation')
     
 
       // logged in:
-      li.dropdown(ng-show="LoggedIn.success")
+      li.dropdown(ng-show="LoggedIn.success", ng-controller="AppCtrl")
         a.dropdown-toggle(href='#', data-toggle='dropdown')
           | Profile
           b.caret
         ul.dropdown-menu
-          li
-            a(href='/#/profile/edit') Edit profile
-          li
-            a(ng-click="LoggedIn.doLogout();") Logout
+          li(ng-repeat="choice in navigation.profile")
+            a(href="{{choice.href}}") {{choice.text}}
       // logged out:
       li(ng-show="!LoggedIn.success")
         a(target="_self", href='/login') Login
