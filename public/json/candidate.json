@@ -16,39 +16,39 @@
         "questions": [
           //question
           {
-            "type": "Cons",
+            "type": "cons",
             "section": 0,
             "order": 0,
-            "text": "What is your fravorite season?",
+            "text": "Cons?",
             "answers":[
               { "author": 
                   { "first_name": "Pepe", 
                     "last_name": "LePew" },
-                "value": "Fall ",
+                "value": "Young ",
               },
               { "author": 
                   { "first_name": "Roger", 
                     "last_name": "Rabit" },
-                "value": "Winter",
+                "value": "Lacks experience",
               },
             ]
           },
           //question
           {
-            "type": "cons",
+            "type": "pros",
             "section": 0,
             "order": 0,
-            "text": "Pros",
+            "text": "Pros?",
             "answers":[
               { "author": 
                   { "first_name": "Pepe", 
                     "last_name": "LePew" },
-                "value": "Fall ",
+                "value": "Smart ",
               },
               { "author": 
                   { "first_name": "Roger", 
                     "last_name": "Rabit" },
-                "value": "Winter",
+                "value": "Hard working",
               },
             ]
           },
