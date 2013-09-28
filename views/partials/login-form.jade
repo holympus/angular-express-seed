@@ -2,7 +2,7 @@
   b Error {{LoggedIn.status}}: 
   {{LoggedIn.message}}
 //- .alert.alert-success(ng-show="LoggedIn.success")  {{LoggedIn.message}}
-form(name="form", role="form",ng-submit="LoggedIn.doLogin(loginForm)")
+form(name="form", role="form",ng-submit="LoggedIn.doLogin(loginForm); loginForm.password ='';")
   hr
   .form-group
     label(for="user") Username
