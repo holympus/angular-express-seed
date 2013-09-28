@@ -16,17 +16,21 @@ var app = module.exports = express();
 
 var mongoose = require('mongoose'),
 Schema = mongoose.Schema,
+ObjectId = Schema.ObjectId,
 passportLocalMongoose = require('passport-local-mongoose');
 
 var User = require('./models/user'),
     Candidate = require('./models/candidate'),
     Company = require('./models/company'),
-    Question = require('./models/question');
+    Question = require('./models/question'),
+    Position = require('./models/position');
 
 mongoose.connect('mongodb://localhost/gnopher-development');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback () {
+  //var new_position = new Position({company: mongoose.Types.ObjectId("5244c190c4550d2856000001"), title: "Chief of Idiocy", hired_state: "hiring", department: "Overpaid Mid-level Managers"});
+  //new_position.save()
 });
 
 /**
@@ -91,7 +95,7 @@ app.get('/api/login', IsAuthenticated, function (req, res, next) {
 	});
 
 app.get('/api/candidates', IsAuthenticated, function (req, res, next) {
-  Candidate.find({'company':req.user.company._id}, function(err, candidates) {
+  Candidate.find({'company':req.user.company}).populate('position').exec(function(err, candidates) {
     res.json({'candidates': candidates});  
   });
 });
