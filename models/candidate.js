@@ -6,7 +6,7 @@ var mongoose = mongoose = require('mongoose')
 
 var CandidateSchema = new Schema({
 	    company: {type: ObjectId, ref:'Company'},
-	    positions: [{type: ObjectId, ref: 'Position'}],
+	    position: {type: ObjectId, ref: 'Position'},
 	    name: String,
 	    questions: [{ type: ObjectId, ref: 'Question' }],
 	    active: { type: Boolean, default: true },
