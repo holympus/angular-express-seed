@@ -88,6 +88,7 @@ app.get('/register', function(req, res) {
     });
 // JSON API
 app.get('/api/name', api.name);
+app.get('/api/static/*', api.staticJSON);
 
 app.get('/api/login', IsAuthenticated, function (req, res, next) {
 	res.json({ "success": "true", "username": req.user.username, "first_name": req.user.first_name })
