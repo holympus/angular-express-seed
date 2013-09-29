@@ -1,11 +1,11 @@
-nav.navbar.navbar-default(role='navigation')
+nav.navbar.navbar-default(role='navigation', ng-controller = 'NavbarCtrl')
   .container
     
     //  Brand and toggle get grouped for better mobile display 
     .navbar-header
     
 
-      button.navbar-toggle(type='button', ng-click="navbar.isCollapsed = !navbar.isCollapsed", data-toggle='collapse', data-target='.navbar-ex1-collapse')
+      button.navbar-toggle(type='button', ng-click="navbar.isCollapsed = !navbar.isCollapsed; console.log(navbar.isCollapsed);", data-toggle='collapse', data-target='.navbar-ex1-collapse')
         span.sr-only Toggle navigation
         span.icon-bar
         span.icon-bar
@@ -15,7 +15,7 @@ nav.navbar.navbar-default(role='navigation')
     
     
     // Collect the nav links, forms, and other content for toggling 
-    .collapse.navbar-collapse.navbar-ex1-collapse(collapse="navbar.isCollapsed",ng-controller="NavbarCtrl")
+    .collapse.navbar-collapse.navbar-ex1-collapse(collapse="navbar.isCollapsed")
       ul.nav.navbar-nav
         li(ng-class="{active: isActive('/candidates')}")
           a(href='/candidates') Candidates
