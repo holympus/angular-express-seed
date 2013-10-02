@@ -83,6 +83,7 @@ function IsAuthenticated(req,res,next){
 // serve index and view partials
 app.get('/', routes.index);
 app.get('/partials/:name', routes.partials);
+app.get('/partials/:subfolder/:name', routes.subpartials);
 app.get('/register', function(req, res) {
         res.render('register', {action: 'register'});
     });
