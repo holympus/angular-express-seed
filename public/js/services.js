@@ -48,6 +48,8 @@ angular.module('myApp.services', ['ngResource','ng'])
   
   //init the userdata object
   setUserData(null);
+  
+  //LOGIN 
   this.doLogin = function(data){
     var username = data.username;
     resource.save(data, function(data,headers){
@@ -59,6 +61,7 @@ angular.module('myApp.services', ['ngResource','ng'])
     });
   };
   
+  //LOGOUT
   this.doLogout = function(){
     resource.delete({},function(){
       console.log('loggedout success');
@@ -71,7 +74,8 @@ angular.module('myApp.services', ['ngResource','ng'])
   }
   
   
-  // @param function proceed
+  // verify user before proceeding
+  //@param function proceed
   this.verifyProceed= function(proceed){
     resource.get({},function(data,headers){
       console.log('verified user, proceeding');
@@ -81,6 +85,7 @@ angular.module('myApp.services', ['ngResource','ng'])
     });
   }
   
+  //init function for startup
   this.init = function(){
     console.log('initializing user', self);
     resource.get({},function(data,headers){
