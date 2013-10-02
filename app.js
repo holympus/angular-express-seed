@@ -63,12 +63,11 @@ if (app.get('env') === 'production') {
 };
 
 passport.use(new LocalStrategy(User.authenticate()));
-
 // use static serialize and deserialize of model for passport session support
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-function IsAuthenticated(req,res,next){
+var isAuthenticated = function(req,res,next){
     if(req.user){
         next();
     }
@@ -87,61 +86,30 @@ app.get('/partials/:subfolder/:name', routes.subpartials);
 app.get('/register', function(req, res) {
         res.render('register', {action: 'register'});
     });
+
 // JSON API
+//testing
 app.get('/api/name', api.name);
 app.get('/api/static/*', api.staticJSON);
 
-app.get('/api/login', IsAuthenticated, function (req, res, next) {
-	res.json({ "success": "true", "username": req.user.username, "first_name": req.user.first_name })
-	
-	});
 
-app.get('/api/candidates', IsAuthenticated, function (req, res, next) {
-  Candidate.find({'company':req.user.company}).populate('position').exec(function(err, candidates) {
-    res.json({'candidates': candidates});  
-  });
-});
+//LOGIN
+app.get('/api/login', api.login.get);
+app.post('/api/login', passport.authenticate('local'), api.login.get);
+app.delete('/api/login', api.login.del);
+app.get('/api/logout', api.login.del);
+
+//candidates
+app.get('/api/candidates', api.candidates);
+app.get('/api/candidate', api.candidate);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);
 
-app.post('/api/login', passport.authenticate('local'), function(req, res) {
-        res.json({ "success": "true", "first_name": req.user.first_name })
-    });
-
-app.delete('/api/login', function(req, res) {
-        req.logout();
-        res.json({ "success": "true"})
-    });
-
-app.get('/api/logout', function(req, res) {
-        req.logout();
-        res.redirect('/');
-    });
 
 
-app.post('/register', function(req, res) {
-    User.register(new User({ username : req.body.username, first_name: req.body.first_name }), req.body.password, function(err, user) {
-        if (err) {
-            console.log(err);
-            return res.json({ "success": "false", "errorMsg": err.message })
-        }
-		var email_verification_code = Math.random().toString(36).substr(2,16);
-		user.email_verification_code = email_verification_code;
-		user.save(function (err) {
-   		 if (err) return handleError(err);
-    	 	return res.json({ "success": "false", "errorMsg": "User could not be saved." })
-  		});
-		//postmark.send({
-        //"From": "notifications@crushthewod.com", 
-        //"To": user.username, 
-        //"Subject": "Email Confirmation", 
-        //"TextBody": "Hello! Please confirm your email by clicking this link: http://54.241.9.166:3000/verifyemail/?v=" + email_verification_code
-    //});
-        res.json({ "success": "true" })
-    });
-});
 
+app.post('/register', api.register);
 /**
  * Start Server
  */
