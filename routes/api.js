@@ -39,12 +39,11 @@ exports.register = function(req,res){
    User.register(new User({ username : req.body.username, first_name: req.body.first_name }), req.body.password, function(err, user) {
         if (err) {
             console.log(err);
-            return res.json({ "success": "false", "errorMsg": err.message })
+            return res.json({ "success": false, "errorMsg": err.message })
         }
     var email_verification_code = Math.random().toString(36).substr(2,16);
     user.email_verification_code = email_verification_code;
     user.save(function (err) {
-       if (err) return handleError(err);
         return res.json({ "success": "false", "errorMsg": "User could not be saved." })
       });
     //postmark.send({

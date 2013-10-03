@@ -52,6 +52,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(app.router);
 
+//error handlilng
+app.use(function(err, req, res, next){
+  console.error(err.stack);
+  res.send(500, 'Something broke!');
+});
+
 // development only
 if (app.get('env') === 'development') {
   app.use(express.errorHandler());
@@ -83,9 +89,9 @@ var isAuthenticated = function(req,res,next){
 app.get('/', routes.index);
 app.get('/partials/:name', routes.partials);
 app.get('/partials/:subfolder/:name', routes.subpartials);
-app.get('/register', function(req, res) {
-        res.render('register', {action: 'register'});
-    });
+// app.get('/register', function(req, res) {
+//         res.render('register', {action: 'register'});
+//     });
 
 // JSON API
 //testing
@@ -98,6 +104,7 @@ app.get('/api/login', api.login.get);
 app.post('/api/login', passport.authenticate('local'), api.login.get);
 app.delete('/api/login', api.login.del);
 app.get('/api/logout', api.login.del);
+app.post('/api/register',api.register, passport.authenticate('local'), api.login.get)
 
 //candidates
 app.get('/api/candidates', api.candidates);
