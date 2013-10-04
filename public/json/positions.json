@@ -1,0 +1,68 @@
+positions = [
+        {
+            "company": "5244c190c4550d2856000001",
+            "title": "Chief of Idiocy",
+            "hired_state": "hiring",
+            "department": "Overpaid Mid-level Managers",
+            "_id": "52474093eb4479e50c000001",
+            "__v": 0,
+            "created_at": "2013-09-28T20:48:19.055Z",
+            "active": true,
+            "questions": []
+        },
+        {
+            "company": "5244c190c4550d2856000001",
+            "title": "Chief of Idiocy",
+            "hired_state": "hiring",
+            "department": "Overpaid Mid-level Managers",
+            "_id": "524741be84dd9e300e000001",
+            "__v": 0,
+            "created_at": "2013-09-28T20:53:18.401Z",
+            "active": true,
+            "questions": []
+        },
+        {
+            "company": "5244c190c4550d2856000001",
+            "title": "Chief of Idiocy",
+            "hired_state": "hiring",
+            "department": "Overpaid Mid-level Managers",
+            "_id": "524746bcbc13c9aa13000001",
+            "__v": 0,
+            "created_at": "2013-09-28T21:14:36.128Z",
+            "active": true,
+            "questions": []
+        },
+        {
+            "company": "5244c190c4550d2856000001",
+            "title": "Chief of Idiocy",
+            "hired_state": "hiring",
+            "department": "Overpaid Mid-level Managers",
+            "_id": "524747a82cf6dcb314000001",
+            "__v": 0,
+            "created_at": "2013-09-28T21:18:32.832Z",
+            "active": true,
+            "questions": []
+        },
+        {
+            "company": "5244c190c4550d2856000001",
+            "title": "Chief of Idiocy",
+            "hired_state": "hiring",
+            "department": "Overpaid Mid-level Managers",
+            "_id": "524747b69e7c10c114000001",
+            "__v": 0,
+            "created_at": "2013-09-28T21:18:46.376Z",
+            "active": true,
+            "questions": []
+        },
+        {
+            "company": "5244c190c4550d2856000001",
+            "title": "Chief of Idiocy",
+            "hired_state": "hiring",
+            "department": "Overpaid Mid-level Managers",
+            "_id": "52474ac992d2511818000001",
+            "__v": 0,
+            "created_at": "2013-09-28T21:31:53.786Z",
+            "active": true,
+            "questions": []
+        }
+    ]

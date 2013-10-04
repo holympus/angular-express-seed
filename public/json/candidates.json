@@ -1,0 +1,32 @@
+candidates = [
+        {
+            "company": "5244c190c4550d2856000001",
+            "name": "Hans Hilger",
+            "_id": "52473db5d3bc48b709000001",
+            "__v": 0,
+            "position": null,
+            "created_at": "2013-09-28T20:36:05.007Z",
+            "active": true,
+            "questions": []
+        },
+        {
+            "_id": "52473ce6a9dfdcc808000001",
+            "name": "Hans Hilger",
+            "__v": 0,
+            "position": {
+                "company": "5244c190c4550d2856000001",
+                "title": "Chief of Idiocy",
+                "hired_state": "hiring",
+                "department": "Overpaid Mid-level Managers",
+                "_id": "52474093eb4479e50c000001",
+                "__v": 0,
+                "created_at": "2013-09-28T20:48:19.055Z",
+                "active": true,
+                "questions": []
+            },
+            "company": "5244c190c4550d2856000001",
+            "created_at": "2013-09-28T20:32:38.360Z",
+            "active": true,
+            "questions": []
+        }
+    ]
