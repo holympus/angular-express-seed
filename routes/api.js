@@ -1,3 +1,4 @@
+var User = require('../models/user');
 /*
  * Serve JSON to our AngularJS client
  */
@@ -35,8 +36,8 @@ exports.login = {
 
 
 //Register
-exports.register = function(req,res){
-   User.register(new User({ username : req.body.username, first_name: req.body.first_name }), req.body.password, function(err, user) {
+exports.register = function(req,res,next){
+   User.register(new User({ username : req.query.username, first_name: req.query.first_name }), req.query.password, function(err, user) {
         if (err) {
             console.log(err);
             return res.json({ "success": false, "errorMsg": err.message })
@@ -44,7 +45,10 @@ exports.register = function(req,res){
     var email_verification_code = Math.random().toString(36).substr(2,16);
     user.email_verification_code = email_verification_code;
     user.save(function (err) {
-        return res.json({ "success": "false", "errorMsg": "User could not be saved." })
+        if (err) {
+          console.log(err);
+          return res.json({ "success": "false", "errorMsg": "User could not be saved." });
+        }
       });
     //postmark.send({
         //"From": "notifications@crushthewod.com", 
@@ -52,7 +56,8 @@ exports.register = function(req,res){
         //"Subject": "Email Confirmation", 
         //"TextBody": "Hello! Please confirm your email by clicking this link: http://54.241.9.166:3000/verifyemail/?v=" + email_verification_code
     //});
-        res.json({ "success": "true" })
+        //res.json({ "success": "true" })
+        next();
     });
 };
 
