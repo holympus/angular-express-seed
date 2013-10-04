@@ -110,6 +110,9 @@ app.post('/api/register',api.register, passport.authenticate('local'), api.login
 app.get('/api/candidates', api.candidates);
 app.get('/api/candidate/:candidate_id', api.candidate);
 
+//positions
+app.get('/api/positions', api.positions);
+app.get('/api/position/:position_id', api.position);
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);
 

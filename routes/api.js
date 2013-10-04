@@ -1,5 +1,6 @@
 var User = require('../models/user'),
-Candidate = require('../models/candidate');
+Candidate = require('../models/candidate'),
+Position = require('../models/position');
 /*
  * Serve JSON to our AngularJS client
  */
@@ -82,5 +83,25 @@ exports.candidate =  function(req,res){
     });
   }else{
     res.sendfile('candidate.json', {root: './public/json'});
+  }
+};
+
+exports.positions = function(req,res){
+  if(req.user){
+    Position.find({'company':req.user.company}).populate('questions').exec(function(err, positions) {
+    res.json({'positions': positions});  
+    });
+  }else{
+    res.sendfile('positions.json', {root: './public/json'});
+  }
+};
+exports.position =  function(req,res){
+  if(req.user){
+    //req.params['position_id'];
+    Position.findOne({ '_id': req.params['position_id']}).populate('questions').exec(function(err, position) {
+    res.json({'position': position});  
+    });
+  }else{
+    res.sendfile('position.json', {root: './public/json'});
   }
 };
