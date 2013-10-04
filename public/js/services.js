@@ -13,24 +13,26 @@ angular.module('myApp.services', ['ngResource','ng'])
 
 
 
-// RESOURCE FOR LOGGED IN USER OBJECT
+// Resources API service
 // get  => returns userObject
 // save => post method, logins in user with {username,password}
-// delete => logout user
-.factory('LoggedInResource', ['$resource' , function($resource){
-  this.Login = $resource ("/api/login");
-  this.Login.username = '';
-  return this.Login; 
+// delete => logout user or delete a post
+
+//Api service - resources
+.factory('Api', ['$resource' , function($resource){
+  this.login = $resource ("/api/login");
+  this.register = $resource("/api/register");
+  return this; 
 }])
 
 
-// SERVICE TO HANDLE LOGGING IN AND OUT
 
-.factory("LoggedIn", ['LoggedInResource', '$location', function(resource,$location){
+
+// SERVICE TO HANDLE LOGGING IN AND OUT And Registering
+.factory("LoggedIn", ['Api', '$location', function(Api,$location){
   var self = this; 
   self.first_name = self.username = self.success = self.message = self.status = null; 
 
-  console.log(this); 
   //Common Private functions
   var setUserData = function(data){
     console.log(data); 
@@ -40,19 +42,27 @@ angular.module('myApp.services', ['ngResource','ng'])
       self.success = data.success;
       self.message = data.message || "Successfully Logged In as " + data.username;
       self.status = data.status; 
+      self.fail = !!self.status && !self.success;
     }else{
       //nullify data
-      self.first_name = self.username = self.success = self.message = self.status = null; 
+      self.first_name = self.username = self.success = self.message = self.status = self.fail = null; 
     }
   } 
+
   
   //init the userdata object
   setUserData(null);
   
+  
+  //CLEAR ERRORS
+  this.clearErrors = function(){
+    self.message = self.fail = null; 
+  }
+  
   //LOGIN 
   this.doLogin = function(data){
     var username = data.username;
-    resource.save(data, function(data,headers){
+    Api.login.save(data, function(data,headers){
       data.username = data.username || username; 
       setUserData(data);
     },function(err){
@@ -63,7 +73,7 @@ angular.module('myApp.services', ['ngResource','ng'])
   
   //LOGOUT
   this.doLogout = function(){
-    resource.delete({},function(){
+    Api.login.delete({},function(){
       console.log('loggedout success');
     },function(err){
       console.log('loggout backend error', err);
@@ -77,7 +87,7 @@ angular.module('myApp.services', ['ngResource','ng'])
   // verify user before proceeding
   //@param function proceed
   this.verifyProceed= function(proceed){
-    resource.get({},function(data,headers){
+    Api.login.get({},function(data,headers){
       console.log('verified user, proceeding');
       proceed(); 
     },function(err){
@@ -88,15 +98,14 @@ angular.module('myApp.services', ['ngResource','ng'])
   //init function for startup
   this.init = function(){
     console.log('initializing user', self);
-    resource.get({},function(data,headers){
+    Api.login.get({},function(data,headers){
       console.log('verified user initiated');
       setUserData(data);    
     },function(err){ //not logged in
       setUserData(null);
-      $location.path('/login')
+      //$location.path('/login')
     });
   }
-  
  
   return this; 
 }])

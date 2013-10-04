@@ -1,7 +1,3 @@
-.alert.alert-danger(ng-show="LoggedIn.failed")  
-  b Error {{LoggedIn.status}}: 
-  {{LoggedIn.message}}
-//- .alert.alert-success(ng-show="LoggedIn.success")  {{LoggedIn.message}}
 form(name="form", role="form",ng-submit="LoggedIn.doLogin(loginForm); loginForm.password ='';")
   hr
   .form-group

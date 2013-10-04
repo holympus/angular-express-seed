@@ -1,0 +1,32 @@
+.row
+  .col-sm-8.col-sm-offset-2
+    h1.text-center
+      | Welcome To Gnopher
+    h2.text-center
+      i.subtitle Signup here!
+    br
+.row
+  .col-sm-6.col-sm-offset-3
+    #login-success.text-center(ng-show="LoggedIn.success")
+      hr
+      b Success! 
+      | {{LoggedIn.first_name.capitalize()}}, you are ready to hire some talent!
+      hr
+    #register-form(ng-show="!LoggedIn.success")
+      form(name="form", role="form",ng-submit="LoggedIn.doRegister(loginForm); loginForm.password ='';")
+        hr
+        .form-group
+          label(for="user") Username
+          input.form-control(ng-model="loginForm.username", type="email",name="username", id="user", placeholder="username or email", required)
+          //- span.alert-danger(ng-show="form.username.$dirty && form.username.$error.required") Tell us your email.
+          //- span.alert-danger(ng-show="form.username.$dirty && form.username.$error.email") This is not a valid email
+        .form-group
+          label(for="password") Password
+          input.form-control(ng-model="loginForm.password",required, type="password",name="password", id="password", placeholder="password")
+          //- span.alert-danger(ng-show="form.password.$dirty && form.username.$error.required") Please input your password
+        hr
+        button.btn.btn-primary.pull-right(type="submit") Login
+        br
+          
+
+

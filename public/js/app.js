@@ -17,6 +17,10 @@ config(function ($routeProvider, $locationProvider) {
       templateUrl: 'partials/login',
       controller: 'LoginCtrl'
     }).
+    when('/register', {
+      templateUrl: 'partials/register',
+      controller: 'LoginCtrl'
+    }).
     when('/logout', {
       templateUrl: 'partials/logout',
       controller: 'LogoutCtrl',
