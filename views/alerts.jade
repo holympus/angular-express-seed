@@ -1,0 +1,3 @@
+div#page-alerts
+  .container
+    alert(ng-repeat="alert in AlertService.alerts", type="alert.type", close="AlertService.closeAlert($index)") {{alert.msg}}

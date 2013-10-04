@@ -26,10 +26,27 @@ angular.module('myApp.services', ['ngResource','ng'])
 }])
 
 
+//ALERT SERVICE FOR GLOBAL PAGE ALERTS
+.factory('AlertService',[function(){
+    var self = this;
+    this.alerts = [];
+    this.addAlert = function(type,msg) {
+      type = type ||  "warning"; 
+      self.alerts.push({
+        type: type,
+        msg: msg,
+      });
+    };
+    this.closeAlert= function(index) {
+      self.alerts.splice(index, 1);
+    };
+    return this; 
+}])
+
 
 
 // SERVICE TO HANDLE LOGGING IN AND OUT And Registering
-.factory("LoggedIn", ['Api', '$location', function(Api,$location){
+.factory("LoggedIn",  ['Api', '$location', 'AlertService', function(Api,$location,AlertService){
   var self = this; 
   self.first_name = self.username = self.success = self.message = self.status = null; 
 
@@ -48,6 +65,17 @@ angular.module('myApp.services', ['ngResource','ng'])
       self.first_name = self.username = self.success = self.message = self.status = self.fail = null; 
     }
   } 
+  
+  var setErrorAlert = function(err){
+      var alertType = 'error';
+      var msg = err.message || "Error Logging in"; 
+      var status = err.status || "Error";
+      if(err.status >= 500 && !err.message)
+        msg ="There was a server error, try again later.";
+      msg = "<b>" + status + ":</b> " + msg;
+      AlertService.AddAlert(alertType,msg);
+  }
+  
 
   
   //init the userdata object
@@ -65,18 +93,20 @@ angular.module('myApp.services', ['ngResource','ng'])
     Api.login.save(data, function(data,headers){
       data.username = data.username || username; 
       setUserData(data);
+      AlertService.addAlert('success', 'You successfully Logged in!');
     },function(err){
       console.log('loginerr',err);
       setUserData(err);
+      setErrorAlert(err);
     });
   };
   
   //LOGOUT
   this.doLogout = function(){
     Api.login.delete({},function(){
-      console.log('loggedout success');
+      AlertService.addAlert( 'info','You have logged out successfully');
     },function(err){
-      console.log('loggout backend error', err);
+      setErrorAlert(err);
     });
     console.log('starting to log out');
     setUserData(null);
@@ -91,7 +121,8 @@ angular.module('myApp.services', ['ngResource','ng'])
       console.log('verified user, proceeding');
       proceed(); 
     },function(err){
-      $location.path('/login')
+      $location.path('/login');
+      setErrorAlert(err);
     });
   }
   

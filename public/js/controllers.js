@@ -7,8 +7,9 @@ angular.module('myApp.controllers', [])
   
   
   //APP CONTROLLER (PARENT)
-  .controller('AppCtrl', ['$scope', '$http', '$location','LoggedIn',function ($scope, $http, $location,LoggedIn) {   
+  .controller('AppCtrl', ['$scope', '$http', '$location','LoggedIn','AlertService',function ($scope, $http, $location,LoggedIn, AlertService) {   
     $scope.LoggedIn = LoggedIn;
+    $scope.AlertService = AlertService;
     $scope.init = function(){
       LoggedIn.init();
     }
@@ -40,6 +41,8 @@ angular.module('myApp.controllers', [])
         return path === location;
     };
   }])
+  
+
 
   
   
@@ -60,7 +63,6 @@ angular.module('myApp.controllers', [])
       false; 
     }
   }])
-  
   
   
   //PositionsCtrl Main View Controller

@@ -7,7 +7,6 @@
   .col-sm-6.col-sm-offset-3
     #login-success.text-center(ng-show="LoggedIn.success")
       hr
-      b Success! 
       | {{LoggedIn.first_name.capitalize()}}, you are ready to hire some talent!
       hr
     #login-form(ng-show="!LoggedIn.success")
