@@ -1,4 +1,5 @@
-var User = require('../models/user');
+var User = require('../models/user'),
+Candidate = require('../models/candidate');
 /*
  * Serve JSON to our AngularJS client
  */
@@ -66,7 +67,9 @@ exports.register = function(req,res,next){
 //Candidates
 exports.candidates = function(req,res){
   if(req.user){
-    //code to get the user co. candidate data
+    Candidate.find({'company':req.user.company}).populate('position').exec(function(err, candidates) {
+    res.json({'candidates': candidates});  
+    });
   }else{
     res.sendfile('candidates.json', {root: './public/json'});
   }
@@ -74,7 +77,9 @@ exports.candidates = function(req,res){
 exports.candidate =  function(req,res){
   if(req.user){
     //req.params['candidate_id'];
-    //code to get the user data
+    Candidate.findOne({ '_id': req.params['candidate_id']}).populate('position').exec(function(err, candidate) {
+    res.json({'candidate': candidate});  
+    });
   }else{
     res.sendfile('candidate.json', {root: './public/json'});
   }
