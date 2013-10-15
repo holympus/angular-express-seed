@@ -5,8 +5,8 @@ var mongoose = mongoose = require('mongoose')
 
 var QuestionSchema = new Schema({
 	    company: {type: ObjectId, ref: 'Company'},
+      type: {type: String, default:'text', enum:['text','boolean','rank']},
 	    text: String,
-	    answers: [{type: String}],
 	    active: { type: Boolean, default: true },
 	    created_at: { type: Date, default: Date.now }
 	});
