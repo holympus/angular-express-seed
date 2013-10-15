@@ -58,10 +58,6 @@ angular.module('myApp.controllers', [])
       username:'',
       password:''
     };    
-    $scope.consoleLoggedIn = function(){
-      console.log('loggedin',LoggedIn);
-      false; 
-    }
   }])
   
   
@@ -72,8 +68,10 @@ angular.module('myApp.controllers', [])
   
   
   //CandidatesCtrl Main View Controller
-  .controller('CandidatesCtrl',['$scope',function($scope){
-    
+  .controller('CandidatesCtrl',['$scope','Api',function($scope,Api){
+    $scope.candidate = Api.testCandidate.get();
+    console.log('candidate',Api.testCandidate.get());
+    console.log('login', Api.login.get());
   }])
 
 
