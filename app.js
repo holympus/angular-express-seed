@@ -96,7 +96,7 @@ app.get('/partials/:subfolder/:name', routes.subpartials);
 // JSON API
 //testing
 app.get('/api/name', api.name);
-app.get('/api/static/*', api.staticJSON);
+app.get('/api/static/*', api.staticJson);
 
 
 //LOGIN

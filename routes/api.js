@@ -13,7 +13,7 @@ exports.name = function (req, res) {
 };
 
 //Sampledata
-exports.staticJSON =  function(req, res){
+exports.staticJson =  function(req, res){
     path = req.params[0];
     res.sendfile(path, {root: './public/json'});
 };
