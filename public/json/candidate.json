@@ -1,4 +1,4 @@
-  candidate = {
+{
     "first_name": "Alex" ,
     "last_name":  "Lockwood",
     "user_photo": "headshot.jpg",
@@ -8,95 +8,77 @@
       "department": "design",
       "id": "position_uniqu_id"
     },
-    "sections": [
-      //section1
+ 
+    "questions": [
       {
+        "type": "cons",
+        "section": 0,
         "order": 0,
-        "name": "Overview",
-        "questions": [
-          //question
-          {
-            "type": "cons",
-            "section": 0,
-            "order": 0,
-            "text": "Cons?",
-            "answers":[
-              { "author": 
-                  { "first_name": "Pepe", 
-                    "last_name": "LePew" },
-                "value": "Young ",
-              },
-              { "author": 
-                  { "first_name": "Roger", 
-                    "last_name": "Rabbit" },
-                "value": "Lacks experience",
-              },
-            ]
+        "text": "Cons?",
+        "answers":[
+          { "author": 
+              { "first_name": "Pepe", 
+                "last_name": "LePew" },
+            "value": "Young "
           },
-          //question
-          {
-            "type": "pros",
-            "section": 0,
-            "order": 0,
-            "text": "Pros?",
-            "answers":[
-              { "author": 
-                  { "first_name": "Pepe", 
-                    "last_name": "LePew" },
-                "value": "Smart ",
-              },
-              { "author": 
-                  { "first_name": "Roger", 
-                    "last_name": "Rabbit" },
-                "value": "Hard working",
-              },
-            ]
-          },
-        ]//end questions
-      },
-      
-      //section2
-      {
-        "order": 0,
-        "name": "Overview",
-        "questions": [
-          //question
-          {
-            "type": "text-question",
-            "order": 1,
-            "text": "What is your fravorite color?",
-            "answers":[
-              { "author": 
-                  { "first_name": "Pepe", 
-                    "last_name": "LePew" },
-                "value": "Turquoise ",
-              },
-              { "author": 
-                  { "first_name": "Roger", 
-                    "last_name": "Rabbit" },
-                "value": "Blue",
-              },
-            ]
-          },
-          //question
-          {
-            "type": "text-question",
-            "order": 1,
-            "text": "What is your fravorite season?",
-            "answers":[
-              { "author": 
-                  { "first_name": "Pepe", 
-                    "last_name": "LePew" },
-                "value": "Fall ",
-              },
-              { "author": 
-                  { "first_name": "Roger", 
-                    "last_name": "Rabbit" },
-                "value": "Winter",
-              },
-            ]
-          },
+          { "author": 
+              { "first_name": "Roger", 
+                "last_name": "Rabbit" },
+            "value": "Lacks experience"
+          }
         ]
-      },//end section2
-    ]//end sections
-  } //end candidate
+      },
+      {
+        "type": "pros",
+        "section": 0,
+        "order": 0,
+        "text": "Pros?",
+        "answers":[
+          { "author": 
+              { "first_name": "Pepe", 
+                "last_name": "LePew" },
+            "value": "Smart "
+          },
+          { "author": 
+              { "first_name": "Roger", 
+                "last_name": "Rabbit" },
+            "value": "Hard working"
+          }
+        ]
+      },
+      {
+        "type": "text-question",
+        "order": 1,
+        "text": "What is your fravorite color?",
+        "answers":[
+          { "author": 
+              { "first_name": "Pepe", 
+                "last_name": "LePew" },
+            "value": "Turquoise "
+          },
+          { "author": 
+              { "first_name": "Roger", 
+                "last_name": "Rabbit" },
+            "value": "Blue"
+          }
+        ]
+      },
+      {
+        "type": "text-question",
+        "order": 1,
+        "text": "What is your fravorite season?",
+        "answers":[
+          { "author": 
+              { "first_name": "Pepe", 
+                "last_name": "LePew" },
+            "value": "Fall "
+          },
+          { "author": 
+              { "first_name": "Roger", 
+                "last_name": "Rabbit" },
+            "value": "Winter"
+          }
+        ]
+      }
+    ]
+  }
