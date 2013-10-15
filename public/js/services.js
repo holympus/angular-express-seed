@@ -30,11 +30,17 @@ angular.module('myApp.services', ['ngResource','ng'])
 .factory('AlertService',[function(){
     var self = this;
     this.alerts = [];
-    this.addAlert = function(type,msg) {
-      type = type ||  "warning"; 
+    this.addAlert = function(type,title,msg) {
+      //if two params are passed they are type and msg
+      msg = msg || title;
+      title = msg === title ? '' : title; 
+      
+      //default type is "warning"
+      type = ['success', 'info', 'warning', 'danger'].indexOf(type) >= 0 ? type : "warning"; 
       self.alerts.push({
         type: type,
         msg: msg,
+        title: title,
       });
     };
     this.closeAlert= function(index) {
@@ -48,93 +54,120 @@ angular.module('myApp.services', ['ngResource','ng'])
 // SERVICE TO HANDLE LOGGING IN AND OUT And Registering
 .factory("LoggedIn",  ['Api', '$location', 'AlertService', function(Api,$location,AlertService){
   var self = this; 
-  self.first_name = self.username = self.success = self.message = self.status = null; 
-
-  //Common Private functions
-  var setUserData = function(data){
-    console.log(data); 
-    if(data !== {} && !!data){
-      self.first_name = data.first_name; 
-      self.username = data.username;
-      self.success = data.success;
-      self.message = data.message || "Successfully Logged In as " + data.username;
-      self.status = data.status; 
-      self.fail = !!self.status && !self.success;
-    }else{
-      //nullify data
-      self.first_name = self.username = self.success = self.message = self.status = self.fail = null; 
-    }
-  } 
-  
-  var setErrorAlert = function(err){
-      var alertType = 'error';
-      var msg = err.message || "Error Logging in"; 
-      var status = err.status || "Error";
-      if(err.status >= 500 && !err.message)
-        msg ="There was a server error, try again later.";
-      msg = "<b>" + status + ":</b> " + msg;
-      AlertService.AddAlert(alertType,msg);
+  this.user = {
+    username: null,
+    first_name: null,
+  };
+  this.alerts = []; 
+  this.status = {
+    isLoggedIn: false,
+    isLoading: false,
+    isError: false,
   }
+  this.success = false; 
   
+  var setAlert = function(data){
+      var alert = {
+        msg: data.message,
+        type: data.type || 'danger',
+        title: data.status,
+        stamp: Date.now(),
+      }
+      self.alerts.push(alert);
+  }
 
-  
-  //init the userdata object
-  setUserData(null);
-  
-  
   //CLEAR ERRORS
-  this.clearErrors = function(){
-    self.message = self.fail = null; 
+  this.clearAlerts = function(){
+    self.message = self.status.isError = null; 
+    self.alerts = [];
   }
   
   //LOGIN 
   this.doLogin = function(data){
-    var username = data.username;
+    self.status.isLoading = true;
     Api.login.save(data, function(data,headers){
-      data.username = data.username || username; 
-      setUserData(data);
-      AlertService.addAlert('success', 'You successfully Logged in!');
+      self.user = data.user; 
+      setAlert({
+        msg: 'You have successfully logged in as ' + data.user.username, 
+        type: 'success',
+        title: 'Success!'
+      });
+      self.status = {
+        isLoggedIn: data.success,
+        isLoading: false,
+        isError: !data.success
+      };
+      self.success = data.success;
     },function(err){
       console.log('loginerr',err);
-      setUserData(err);
-      setErrorAlert(err);
+      self.user = null;
+      setAlert({
+        msg: err.message, 
+        type: 'danger',
+        title: err.status,
+      });
+      self.status = {
+        isLoggedIn: false,
+        isLoading: false,
+        isError: true,
+      };   
     });
   };
   
   //LOGOUT
   this.doLogout = function(){
+    self.status.isLoading = true; 
     Api.login.delete({},function(){
-      AlertService.addAlert( 'info','You have logged out successfully');
+      self.user = null;
+      self.status = {
+        isLoggedIn: false,
+        isLoading: false,
+        isError: false,
+      };  
+      self.success=false;
+      self.clearAlerts();
+      setAlert({
+        msg: "You are now logged out", 
+        type: 'success',
+        title: 'Success!' ,
+      });
     },function(err){
-      setErrorAlert(err);
+      setAlert({
+        msg: "Server error logging out", 
+        type: 'danger',
+        title: 'Danger' + err.status + '!' ,
+      });
+      self.status = {
+        isLoggedIn: false,
+        isLoading: false,
+        isError: true,
+      };      
     });
-    console.log('starting to log out');
-    setUserData(null);
     $location.path('/login');
   }
   
-  
-  // verify user before proceeding
-  //@param function proceed
-  this.verifyProceed= function(proceed){
-    Api.login.get({},function(data,headers){
-      console.log('verified user, proceeding');
-      proceed(); 
-    },function(err){
-      $location.path('/login');
-      setErrorAlert(err);
-    });
-  }
-  
+
   //init function for startup
   this.init = function(){
     console.log('initializing user', self);
     Api.login.get({},function(data,headers){
       console.log('verified user initiated');
-      setUserData(data);    
+      self.user = data.user; 
+      self.status = {
+        isLoggedIn: data.success,
+        isLoading: false,
+        isError: false,
+      };  
+      self.success = data.success; 
     },function(err){ //not logged in
-      setUserData(null);
-      //$location.path('/login')
+      self.user = null;
+      self.status = {
+        isLoggedIn: false,
+        isLoading: false,
+        isError: false,
+      };  
+      self.success= false; 
+      self.clearAlerts();
     });
   }
  
