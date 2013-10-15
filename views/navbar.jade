@@ -36,13 +36,13 @@ nav.navbar.navbar-default(role='navigation', ng-controller = 'NavbarCtrl')
         // logged in:
         li.dropdown(ng-show="LoggedIn.success")
           a.dropdown-toggle(href='#', data-toggle='dropdown')
-            | {{LoggedIn.username}}
+            | {{LoggedIn.user.username}}
             b.caret
           ul.dropdown-menu
             li(ng-repeat="choice in navigation.profile",ng-class="{ active: isActive(choice.href)}")
               a(href="{{choice.href}}") {{choice.text}}
         // logged out:
         li(ng-show="!LoggedIn.success",ng-class="{ active: isActive('/login')}")
-          a(target="_self", href='/login') Login
+          a( href='/login') Login
                 
       // /.navbar-collapse 

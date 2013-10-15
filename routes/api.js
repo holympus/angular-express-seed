@@ -25,7 +25,13 @@ exports.login = {
  
   get: function(req,res){
     if(req.user)
-        res.json({ "success": "true", "username": req.user.username, "first_name": req.user.first_name });
+        res.json({ 
+          "success": "true", 
+          "user": {
+            "username": req.user.username, 
+            "first_name": req.user.first_name 
+          }
+        });
     else
         res.send(401, {status:401, message: 'Unauthorized'});
   },
