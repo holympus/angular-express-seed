@@ -5,12 +5,28 @@
     br
 .row
   .col-sm-6.col-sm-offset-3
-    #login-success.text-center(ng-show="LoggedIn.success")
+    #login-loading.login-loading.text-center(ng-show="LoggedIn.status.isLoading") ...loading...
+    #login-success.text-center(ng-show="LoggedIn.status.isLoggedIn")
       hr
-      | {{LoggedIn.first_name.capitalize()}}, you are ready to hire some talent!
+      | {{LoggedIn.user.first_name.capitalize()}}, you are ready to hire some talent!
       hr
-    #login-form(ng-show="!LoggedIn.success")
-      ng-include(src="'partials/login/login-form'")
+    #login-form(ng-show="!LoggedIn.status.isLoggedIn")
+      form(name="form", role="form",ng-submit="LoggedIn.doLogin(loginForm)")
+        hr
+        .form-group
+          label(for="user") Username
+          input.form-control(ng-model="loginForm.username", type="email",name="username", id="user", placeholder="username or email", required)
+          //- span.alert-danger(ng-show="form.username.$dirty && form.username.$error.required") Tell us your email.
+          //- span.alert-danger(ng-show="form.username.$dirty && form.username.$error.email") This is not a valid email
+        .form-group
+          label(for="password") Password
+          input.form-control(ng-model="loginForm.password",required, type="password",name="password", id="password", placeholder="password")
+          //- span.alert-danger(ng-show="form.password.$dirty && form.username.$error.required") Please input your password
+        hr
+        button.btn.btn-primary.pull-right(type="submit") Login
+        br
+          
+
 
 
     
