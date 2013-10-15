@@ -17,11 +17,13 @@ angular.module('myApp.services', ['ngResource','ng'])
 // get  => returns userObject
 // save => post method, logins in user with {username,password}
 // delete => logout user or delete a post
+// query => get array
 
 //Api service - resources
 .factory('Api', ['$resource' , function($resource){
   this.login = $resource ("/api/login");
   this.register = $resource("/api/register");
+  this.testCandidate = $resource("/api/static/candidate.json");
   return this; 
 }])
 
