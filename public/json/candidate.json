@@ -1,6 +1,7 @@
 {
     "first_name": "Alex" ,
     "last_name":  "Lockwood",
+    "_id": "test",
     "user_photo": "headshot.jpg",
     "position_meta": {
       "title": "Senior Designer",
@@ -11,71 +12,75 @@
  
     "questions": [
       {
-        "type": "cons",
+        "_id": "questionid1",
+        "type": "text",
         "section": 0,
         "order": 0,
-        "text": "Cons?",
+        "title": "Cons?",
         "answers":[
           { "author": 
-              { "first_name": "Pepe", 
-                "last_name": "LePew" },
+              { "name": "author name -2"},
+            "_id": "answerid1",
             "value": "Young "
           },
           { "author": 
-              { "first_name": "Roger", 
-                "last_name": "Rabbit" },
+              { "name": "author name -1"},
+            "_id": "answerid2",
             "value": "Lacks experience"
           }
         ]
       },
       {
-        "type": "pros",
+        "_id": "questionid2",
+        "type": "text",
         "section": 0,
         "order": 0,
-        "text": "Pros?",
+        "title": "Pros?",
         "answers":[
           { "author": 
-              { "first_name": "Pepe", 
-                "last_name": "LePew" },
+              { "name": "author name 0"},
+            "_id": "answerid3",
             "value": "Smart "
           },
           { "author": 
-              { "first_name": "Roger", 
-                "last_name": "Rabbit" },
+              { "name" : "author name 1"},
+            "_id": "answerid4",
             "value": "Hard working"
           }
         ]
       },
       {
-        "type": "text-question",
+        "_id": "questionid3",
+        "type": "text",
         "order": 1,
-        "text": "What is your fravorite color?",
+        "title": "What is your fravorite color?",
         "answers":[
           { "author": 
-              { "first_name": "Pepe", 
-                "last_name": "LePew" },
+              { "name": "author name 2"},
+            "_id": "answerid6",
             "value": "Turquoise "
           },
           { "author": 
-              { "first_name": "Roger", 
-                "last_name": "Rabbit" },
+              { "name" : "author name 3"},
+            "_id": "answerid5",
             "value": "Blue"
           }
         ]
       },
       {
-        "type": "text-question",
+        "_id": "questionid4",
+        "type": "text",
         "order": 1,
-        "text": "What is your fravorite season?",
+        "title": "What is your fravorite season?",
         "answers":[
           { "author": 
-              { "first_name": "Pepe", 
-                "last_name": "LePew" },
+              { "name": "author name 4"},
+            "_id": "answerid7",
             "value": "Fall "
           },
           { "author": 
-              { "first_name": "Roger", 
-                "last_name": "Rabbit" },
+              { "name" : "author name 5"},
+            "_id": "answerid8",
             "value": "Winter"
           }
         ]
