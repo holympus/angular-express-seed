@@ -73,6 +73,14 @@ angular.module('myApp.controllers', [])
     console.log('candidate',Api.testCandidate.get());
     console.log('login', Api.login.get());
   }])
+  
+  //CandidateCtrl - the Candidate Detail page -  Main View Controller - 
+  .controller('CandidateCtrl',['$scope','$routeParams','Api',function($scope,$routeParams,Api){
+    var candidateId = $routeParams['candidateId'];
+    
+    $scope.candidate = Api.testCandidate.get({id:candidateId});
+    console.log('candidate',$scope.candidate);
+  }])
 
 
   //ProfileCtrl Main View Controller

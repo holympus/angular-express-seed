@@ -29,10 +29,10 @@ config(function ($routeProvider, $locationProvider) {
       templateUrl: 'partials/candidates',
       controller: 'CandidatesCtrl',
     }).
-    when('/candidates/:candidate_id', {
+    when('/candidates/:candidateId', {
       templateUrl: 'partials/candidate',
       controller: 'CandidateCtrl',
-    }
+    }).
     when('/positions', {
       templateUrl: 'partials/positions',
       controller: 'PositionsCtrl',
