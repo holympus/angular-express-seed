@@ -1,0 +1,10 @@
+.row
+  .col-sm-4
+    {{question.title}}
+.row
+  .col-sm-9.col-sm-offset-2.form-horizontal
+    .form-group(ng-repeat="answer in question.answers").row
+      label.col-sm-3.control-label(for="{{answer._id}}") {{answer.author.name}}
+      .col-sm-6
+          input.form-control(ng-model="answer.value", type="{{question.type}}",name="{{answer._id}}", placeholder="answer", required)
+
