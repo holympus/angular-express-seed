@@ -1,10 +1,19 @@
 .row
   .col-sm-4
-    {{question.title}}
+    span.question-title
+      {{question.title}}
+    span.previous.glyphicon.glyphicon-chevron-left(ng-click="previousAnswer()")
+    span.badge {{question.answers.length}}
+    span.next.glyphicon.glyphicon-chevron-right(ng-click="nextAnswer()")
+  
 .row
-  .col-sm-9.col-sm-offset-2.form-horizontal
-    .form-group(ng-repeat="answer in question.answers").row
-      label.col-sm-3.control-label(for="{{answer._id}}") {{answer.author.name}}
-      .col-sm-6
-          input.form-control(ng-model="answer.value", type="{{question.type}}",name="{{answer._id}}", placeholder="answer", required)
-
+  .col-sm-9.form-horizontal
+    .answers.row
+      .col-sm-8
+        .form-group(ng-repeat="answer in question.answers", ng-show="$index==answerDisplay.index").row
+          label.col-sm-4.control-label(for="{{answer._id}}"){{$index+1}}) {{answer.author.name}}
+          .col-sm-8
+            input.form-control(ng-model="answer.value", type="{{question.type}}",name="{{answer._id}}", placeholder="answer", required)
+        
+      
+                

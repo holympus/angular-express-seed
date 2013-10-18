@@ -26,3 +26,7 @@ form input.ng-invalid.ng-dirty:focus{
 .alert{
   
 }
+.question-title{
+  font-size: 18px;
+  margin-right:10px;
+}

@@ -9,33 +9,33 @@ angular.module('myApp.directives', []).
     };
   }]).
   
+  
   directive('question',[function(){
     return {
-
       restrict: 'A',
-      priorety: 0,
-      templateUrl: 'partials/common/question', //expects this to be loaded on the page
-      // compile: function(tEl, tAttrs, transclude){
-      //     console.log('element',tElement);
-      //     console.log('tAttrs',tAttrs);
-      //     console.log('transclude', transclude);
-      //     return{
-      //       pre: function preLink(scope, el, attrs) {
-      //         console.log('attrs', iAttrs);
-      //       },
-      //       post: function postLink(scope,el,attrs){
-      //
-      //       }
-      //     };
-      // },
-      link: function(scope, element, attrs){
-        console.log('scope',scope);
+      templateUrl: 'partials/common/question',
+      scope:{
+        // '='-twowaybind, '&'-function getter (oneway), '@'-returns string
+        question:  "=question",  
       },
       
-
-    
+      controller: ['$scope',function($scope){
+        $scope.answerDisplay = {
+          count: $scope.question.answers.length,
+          index: 0
+        };
+        $scope.nextAnswer = function(){
+          $scope.answerDisplay.index = ($scope.answerDisplay.index + 1) % $scope.answerDisplay.count;
+        };
+        $scope.previousAnswer = function(){
+          $scope.answerDisplay.index = ($scope.answerDisplay.index - 1)% $scope.answerDisplay.count;
+        }
+      }],
+      
+      link: function(scope, element, attrs){        
+      },
     };
     
   }])
   
-  
+
